@@ -11,15 +11,13 @@ import { environment } from '../../../../environment';
 
 @Injectable()
 export class SoccerApiInterceptor implements HttpInterceptor {
-    private apiUrl = environment.apiUrl;
     private apiKey = environment.apiKey;
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const modifiedRequest = request.clone({
             setHeaders: {
                 'x-rapidapi-key': this.apiKey,
-                'x-rapidapi-host': 'v3.football.api-sports.io',
-                'Content-Type': 'application/json'
+                'x-rapidapi-host': 'v3.football.api-sports.io'
             }
         });
 
