@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CountryService } from '../../../standings/services/country.service';
 import { Country } from '../../../standings/models/Country';
 import { FootballService } from '../../services/football.service';
 
@@ -9,25 +10,22 @@ import { FootballService } from '../../services/football.service';
 })
 export class HeaderComponent implements OnInit {
   countries: Country[] = [];
-  
-  constructor(private apiService:  FootballService) {}
+
+  constructor(private apiService: FootballService, private countryService: CountryService) { }
 
   ngOnInit(): void {
     this.getCountries();
   }
 
   getCountries(): Country[] {
-    // this.apiService.getCountries().subscribe((response) => {
-    //   console.log(response); 
-    //   this.countries = response;
-    // });
-    this.countries = [
-      { id: 1, name: 'England', code: 'GB', flag: ''},
-      { id: 1, name: 'Spain', code: 'ES', flag: ''},
-      { id: 1, name: 'Germany', code: 'DE', flag: ''},
-      { id: 1, name: 'France', code: 'FR', flag: ''},
-      { id: 1, name: 'Italy', code: 'IT', flag: ''}
-    ]
+    this.countryService.getCountries().subscribe((response) => {
+      this.countries = response;
+    });
+    
     return this.countries;
+  }
+
+  displayStandings(country: Country) {
+    this.apiService.standingChangeNotification.next(country);
   }
 }

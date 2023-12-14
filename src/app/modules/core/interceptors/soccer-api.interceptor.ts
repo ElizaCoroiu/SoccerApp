@@ -14,17 +14,11 @@ export class SoccerApiInterceptor implements HttpInterceptor {
     private apiUrl = environment.apiUrl;
     private apiKey = environment.apiKey;
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const headers = new HttpHeaders({
-            'x-rapidapi-key': this.apiKey,
-            'x-rapidapi-host': this.apiUrl,
-            'Content-Type': 'application/json'
-        });
-
+    intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const modifiedRequest = request.clone({
             setHeaders: {
                 'x-rapidapi-key': this.apiKey,
-                'x-rapidapi-host': this.apiUrl,
+                'x-rapidapi-host': 'v3.football.api-sports.io',
                 'Content-Type': 'application/json'
             }
         });
